@@ -7,19 +7,21 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Kütüphanedeki çalışma odalarını temsil eden entity
- * Oda adı, kapasitesi ve durumu (boş, dolu, bakımda) saklanır
+/*
+  Kütüphanedeki çalışma odalarını temsil eden entity
+  Oda adı, kapasitesi ve durumu (boş, dolu, bakımda) saklanır
  */
 @Entity
 @Table(name = "rooms")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Room {

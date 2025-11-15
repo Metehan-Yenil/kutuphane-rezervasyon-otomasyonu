@@ -6,19 +6,21 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Kullanıcı bilgilerini tutan entity sınıfı
- * Sistem kullanıcıları (öğrenci, personel, admin) bu tabloda saklanır
+/*
+  Kullanıcı bilgilerini tutan entity 
+ Sistem kullanıcıları (öğrenci, personel, admin) bu tabloda saklanır
  */
 @Entity
 @Table(name = "users")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {

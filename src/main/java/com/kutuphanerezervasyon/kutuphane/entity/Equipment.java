@@ -5,19 +5,21 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Kütüphanede ödünç alınabilecek ekipmanları temsil eden entity
- * Laptop, projeksiyon cihazı, tablet gibi cihazlar bu tabloda saklanır
+/*
+  Kütüphanede ödünç alınabilecek ekipmanları temsil eden entity
+  Laptop, projeksiyon cihazı, tablet gibi cihazlar
  */
 @Entity
 @Table(name = "equipment")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Equipment {

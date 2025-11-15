@@ -4,18 +4,20 @@ import com.kutuphanerezervasyon.kutuphane.enums.ReservationStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-/**
- * Kullanıcıların oda ve ekipman rezervasyonlarını tutan ana entity
- * Her rezervasyon bir kullanıcıya, bir zaman dilimine ve bir oda/ekipmana bağlıdır
+/*
+  Kullanıcıların oda ve ekipman rezervasyonlarını tutan ana entity
+Her rezervasyon bir kullanıcıya, bir zaman dilimine ve bir oda/ekipmana bağlıdır
  */
 @Entity
 @Table(name = "reservations")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Reservation {
@@ -51,23 +53,23 @@ public class Reservation {
     @Column(nullable = false, columnDefinition = "varchar(20) default 'BEKLENIYOR'")
     private ReservationStatus status = ReservationStatus.BEKLENIYOR;
     
-    /**
-     * Rezervasyonun geçerli olup olmadığını kontrol eder
-     * En az bir oda veya ekipman seçilmiş olmalı
+    /*
+      Rezervasyonun geçerli olup olmadığını kontrol eder
+      En az bir oda veya ekipman seçilmiş olmalı
      */
     public boolean isValid() {
         return (room != null || equipment != null) && user != null && timeSlot != null && reservationDate != null;
     }
     
-    /**
-     * Rezervasyonu iptal eder
+    /*
+      Rezervasyonu iptal eder
      */
     public void cancel() {
         this.status = ReservationStatus.IPTAL_EDILDI;
     }
     
-    /**
-     * Rezervasyonu onaylar (admin tarafından)
+    /*
+      Rezervasyonu onaylar (admin)
      */
     public void confirm() {
         this.status = ReservationStatus.ONAYLANDI;

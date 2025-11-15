@@ -3,6 +3,7 @@ package com.kutuphanerezervasyon.kutuphane.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,13 +11,14 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Rezervasyon için kullanılabilecek zaman dilimlerini tanımlayan entity
- * Örn: 09:00-10:00, 10:00-11:30 gibi sabit zaman aralıkları
+/*
+ Rezervasyon için kullanılabilecek zaman dilimlerini tanımlayan entity
+ Örn: 09:00-10:00, 10:00-11:30
  */
 @Entity
 @Table(name = "time_slots")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class TimeSlot {
