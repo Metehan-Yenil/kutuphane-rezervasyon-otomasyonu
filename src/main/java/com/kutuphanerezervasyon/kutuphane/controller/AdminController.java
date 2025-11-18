@@ -5,6 +5,7 @@ import com.kutuphanerezervasyon.kutuphane.enums.EquipmentStatus;
 import com.kutuphanerezervasyon.kutuphane.enums.RoomStatus;
 import com.kutuphanerezervasyon.kutuphane.enums.UserRole;
 import com.kutuphanerezervasyon.kutuphane.service.*;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -168,4 +169,65 @@ public class AdminController {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
+
+    // ========== ROOM MANAGEMENT ==========
+    
+    @PostMapping("/rooms")
+    public ResponseEntity<RoomDTO> createRoom(@Valid @RequestBody CreateRoomRequest request) {
+        RoomDTO roomDTO = new RoomDTO();
+        roomDTO.setName(request.getName());
+        roomDTO.setCapacity(request.getCapacity());
+        roomDTO.setStatus(request.getStatus());
+        
+        RoomDTO createdRoom = roomService.createRoom(roomDTO);
+        return ResponseEntity.ok(createdRoom);
+    }
+
+    @PutMapping("/rooms/{id}")
+    public ResponseEntity<RoomDTO> updateRoom(@PathVariable Integer id, @Valid @RequestBody CreateRoomRequest request) {
+        RoomDTO roomDTO = new RoomDTO();
+        roomDTO.setName(request.getName());
+        roomDTO.setCapacity(request.getCapacity());
+        roomDTO.setStatus(request.getStatus());
+        
+        RoomDTO updatedRoom = roomService.updateRoom(id, roomDTO);
+        return ResponseEntity.ok(updatedRoom);
+    }
+
+    @DeleteMapping("/rooms/{id}")
+    public ResponseEntity<Void> deleteRoom(@PathVariable Integer id) {
+        roomService.deleteRoom(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    // ========== EQUIPMENT MANAGEMENT ==========
+    
+    @PostMapping("/equipment")
+    public ResponseEntity<EquipmentDTO> createEquipment(@Valid @RequestBody CreateEquipmentRequest request) {
+        EquipmentDTO equipmentDTO = new EquipmentDTO();
+        equipmentDTO.setName(request.getName());
+        equipmentDTO.setType(request.getType());
+        equipmentDTO.setStatus(request.getStatus());
+        
+        EquipmentDTO createdEquipment = equipmentService.createEquipment(equipmentDTO);
+        return ResponseEntity.ok(createdEquipment);
+    }
+
+    @PutMapping("/equipment/{id}")
+    public ResponseEntity<EquipmentDTO> updateEquipment(@PathVariable Integer id, @Valid @RequestBody CreateEquipmentRequest request) {
+        EquipmentDTO equipmentDTO = new EquipmentDTO();
+        equipmentDTO.setName(request.getName());
+        equipmentDTO.setType(request.getType());
+        equipmentDTO.setStatus(request.getStatus());
+        
+        EquipmentDTO updatedEquipment = equipmentService.updateEquipment(id, equipmentDTO);
+        return ResponseEntity.ok(updatedEquipment);
+    }
+
+    @DeleteMapping("/equipment/{id}")
+    public ResponseEntity<Void> deleteEquipment(@PathVariable Integer id) {
+        equipmentService.deleteEquipment(id);
+        return ResponseEntity.noContent().build();
+    }
 }
+

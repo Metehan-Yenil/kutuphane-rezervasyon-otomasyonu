@@ -89,6 +89,12 @@ public class ReservationController {
         return ResponseEntity.ok(reservation);
     }
 
+    @PutMapping("/{id}/cancel")
+    public ResponseEntity<ReservationDTO> cancelReservationPut(@PathVariable Integer id) {
+        ReservationDTO reservation = reservationService.cancelReservation(id);
+        return ResponseEntity.ok(reservation);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteReservation(@PathVariable Integer id) {
         reservationService.deleteReservation(id);
