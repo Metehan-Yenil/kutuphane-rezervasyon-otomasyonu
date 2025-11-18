@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- * Rezervasyon işlemlerini yöneten ana controller
- * Yeni rezervasyon oluşturma, iptal etme, listeleme işlemleri
- * Kullanıcı başına maksimum 2 aktif rezervasyon sınırı kontrolü burada yapılır
+/*
+ Rezervasyon işlemlerini yöneten ana controller
+  Yeni rezervasyon oluşturma, iptal etme, listeleme işlemleri
+ Kullanıcı başına maksimum 2 aktif rezervasyon sınırı kontrolü burada yapılır
  */
 @RestController
 @RequestMapping("/api/reservations")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:4201", "http://localhost:3000"})
 public class ReservationController {
 
     private final ReservationService reservationService;
@@ -41,7 +41,6 @@ public class ReservationController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ReservationDTO>> getAllReservations() {
         List<ReservationDTO> reservations = reservationService.getAllReservations();
         return ResponseEntity.ok(reservations);
@@ -67,21 +66,18 @@ public class ReservationController {
     }
 
     @GetMapping("/status/{status}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ReservationDTO>> getReservationsByStatus(@PathVariable ReservationStatus status) {
         List<ReservationDTO> reservations = reservationService.getReservationsByStatus(status);
         return ResponseEntity.ok(reservations);
     }
 
     @GetMapping("/pending")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ReservationDTO>> getPendingReservations() {
         List<ReservationDTO> reservations = reservationService.getPendingReservations();
         return ResponseEntity.ok(reservations);
     }
 
     @PatchMapping("/{id}/confirm")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ReservationDTO> confirmReservation(@PathVariable Integer id) {
         ReservationDTO reservation = reservationService.confirmReservation(id);
         return ResponseEntity.ok(reservation);
@@ -94,7 +90,6 @@ public class ReservationController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteReservation(@PathVariable Integer id) {
         reservationService.deleteReservation(id);
         return ResponseEntity.noContent().build();

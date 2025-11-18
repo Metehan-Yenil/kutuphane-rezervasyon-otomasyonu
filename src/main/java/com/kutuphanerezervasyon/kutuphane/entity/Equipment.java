@@ -39,7 +39,7 @@ public class Equipment {
     private String type;
     
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "varchar(20) default 'AVAILABLE'")
+    @Column(nullable = false, length = 20)
     private EquipmentStatus status = EquipmentStatus.AVAILABLE;
     
     @OneToMany(mappedBy = "equipment", cascade = CascadeType.ALL, orphanRemoval = true)

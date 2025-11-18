@@ -20,10 +20,10 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Rezervasyon işlemlerini yöneten ana servis katmanı
- * Çakışma kontrolü, limit kontrolü, onaylama ve iptal işlemleri
- * Kullanıcı başına maksimum 2 aktif rezervasyon sınırlaması burada uygulanır
+/*
+ Rezervasyon işlemlerini yöneten ana servis katmanı
+ Çakışma kontrolü, limit kontrolü, onaylama ve iptal işlemleri
+ Kullanıcı başına maksimum 2 aktif rezervasyon sınırlaması burada 
  */
 @Service
 @RequiredArgsConstructor
@@ -49,6 +49,14 @@ public class ReservationService {
     private int minCancellationHours;
 
     public ReservationDTO createReservation(ReservationRequest request) {
+        System.out.println("=== REZERVASYON OLUŞTURMA BAŞLADI ===");
+        System.out.println("Request: " + request);
+        System.out.println("UserId: " + request.getUserId());
+        System.out.println("RoomId: " + request.getRoomId());
+        System.out.println("EquipmentId: " + request.getEquipmentId());
+        System.out.println("TimeSlotId: " + request.getTimeSlotId());
+        System.out.println("ReservationDate: " + request.getReservationDate());
+        
         // Kullanıcı kontrolü
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("Kullanıcı bulunamadı: " + request.getUserId()));
@@ -212,6 +220,20 @@ public class ReservationService {
         if (Duration.between(now, reservationDateTime).toHours() < minCancellationHours) {
             throw new InvalidOperationException(
                     "Rezervasyon başlangıç saatinden en az " + minCancellationHours + " saat önce iptal edilmelidir");
+        }
+
+        reservation.cancel();
+        Reservation updatedReservation = reservationRepository.save(reservation);
+        return convertToDTO(updatedReservation);
+    }
+
+    // Admin için - zaman kontrolü olmadan iptal
+    public ReservationDTO adminCancelReservation(Integer reservationId) {
+        Reservation reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new ResourceNotFoundException("Rezervasyon bulunamadı: " + reservationId));
+
+        if (reservation.getStatus() == ReservationStatus.IPTAL_EDILDI) {
+            throw new InvalidOperationException("Bu rezervasyon zaten iptal edilmiş");
         }
 
         reservation.cancel();

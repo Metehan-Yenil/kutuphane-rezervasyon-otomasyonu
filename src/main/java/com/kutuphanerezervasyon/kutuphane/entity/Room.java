@@ -42,7 +42,7 @@ public class Room {
     private Integer capacity;
     
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "varchar(20) default 'EMPTY'")
+    @Column(nullable = false, length = 20)
     private RoomStatus status = RoomStatus.EMPTY;
     
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- * Ekipman yönetimi endpoint'leri
- * Laptop, projeksiyon gibi cihazların CRUD işlemleri ve müsaitlik sorgulama
- * Örnek: GET /api/equipment/available?date=2024-01-15&timeSlotId=1
+/*
+ Ekipman yönetimi endpoint'leri
+ Laptop, projeksiyon gibi cihazların CRUD işlemleri ve müsaitlik sorgulama
+ Örnek: GET /api/equipment/available?date=2024-01-15&timeSlotId=1
  */
 @RestController
 @RequestMapping("/api/equipment")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:4201", "http://localhost:3000"})
 public class EquipmentController {
 
     private final EquipmentService equipmentService;

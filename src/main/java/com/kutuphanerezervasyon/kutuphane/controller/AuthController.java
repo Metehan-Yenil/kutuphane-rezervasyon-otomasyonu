@@ -10,15 +10,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Kimlik doğrulama işlemlerini sağlayan controller
- * Kayıt ve giriş endpoint'leri burada tanımlı
- * Örnek: POST /api/auth/register, POST /api/auth/login
+/*
+  Kimlik doğrulama işlemlerini sağlayan controller
+  Kayıt ve giriş endpoint'leri burada tanımlı
+  Örnek: POST /api/auth/register, POST /api/auth/login
  */
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:4201", "http://localhost:3000"})
 public class AuthController {
 
     private final UserService userService;

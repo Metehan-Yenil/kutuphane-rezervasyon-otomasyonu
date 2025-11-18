@@ -47,7 +47,7 @@ public class User {
     private String password;
     
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "varchar(20) default 'USER'")
+    @Column(nullable = false, length = 20)
     private UserRole role = UserRole.USER;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -16,9 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Kullanıcı işlemlerini yöneten servis katmanı
- * Kayıt, giriş, profil güncelleme gibi işlemler bu sınıfta yapılır
+/*
+  Kullanıcı işlemlerini yöneten servis katmanı
+ Kayıt, giriş, profil güncelleme gibi işlemler bu sınıfta yapılır
  */
 @Service
 @RequiredArgsConstructor
@@ -38,7 +38,23 @@ public class UserService {
         user.setName(request.getName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(UserRole.USER);
+        user.setRole(UserRole.USER); // Kayıt olan herkes USER olur
+
+        User savedUser = userRepository.save(user);
+        return convertToDTO(savedUser);
+    }
+
+    public UserDTO createAdmin(RegisterRequest request) {
+        // Email kontrolü
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new InvalidOperationException("Bu email adresi zaten kullanılmaktadır");
+        }
+
+        User user = new User();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setRole(UserRole.ADMIN); // Yeni admin oluştur
 
         User savedUser = userRepository.save(user);
         return convertToDTO(savedUser);

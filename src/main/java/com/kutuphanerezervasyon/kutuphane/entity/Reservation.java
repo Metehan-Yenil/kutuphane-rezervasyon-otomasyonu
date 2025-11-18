@@ -50,7 +50,7 @@ public class Reservation {
     private LocalDate reservationDate;
     
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "varchar(20) default 'BEKLENIYOR'")
+    @Column(nullable = false, length = 20)
     private ReservationStatus status = ReservationStatus.BEKLENIYOR;
     
     /*

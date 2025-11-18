@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalTime;
 import java.util.List;
 
-/**
- * Zaman dilimi yönetimi endpoint'leri
- * Rezervasyon için kullanılabilecek sabit zaman dilimlerini yönetme
- * Örnek: 09:00-10:00, 10:00-11:30 gibi zaman aralıkları tanımlama
+/*
+ Zaman dilimi yönetimi endpoint'leri
+  Rezervasyon için kullanılabilecek sabit zaman dilimlerini yönetme
+  Örnek: 09:00-10:00 gibi zaman aralıkları tanımlama
  */
 @RestController
 @RequestMapping("/api/timeslots")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:4201", "http://localhost:3000"})
 public class TimeSlotController {
 
     private final TimeSlotService timeSlotService;

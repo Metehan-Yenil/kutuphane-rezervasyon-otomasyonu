@@ -28,14 +28,23 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Kullanıcılar oluştur
-        User admin = User.builder()
-                .name("Admin Yönetici")
-                .email("admin@kutuphane.com")
-                .password(passwordEncoder.encode("admin123"))
-                .role(UserRole.ADMIN)
-                .build();
-        userRepository.save(admin);
+        // Root Admin hesabı yoksa oluştur (her zaman kontrol et)
+        if (!userRepository.existsByEmail("root@kutuphane.com")) {
+            User rootAdmin = User.builder()
+                    .name("Root Admin")
+                    .email("root@kutuphane.com")
+                    .password(passwordEncoder.encode("root123"))
+                    .role(UserRole.ADMIN)
+                    .build();
+            userRepository.save(rootAdmin);
+            System.out.println("✅ Root Admin hesabı oluşturuldu: root@kutuphane.com / root123");
+        }
+        
+        // Eğer diğer veriler zaten varsa örnek verileri ekleme
+        if (userRepository.count() > 1) {
+            System.out.println("⚠️ Veritabanında zaten veri mevcut, örnek veriler eklenmedi.");
+            return;
+        }
 
         User student1 = User.builder()
                 .name("Ahmet Yılmaz")
@@ -185,7 +194,7 @@ public class DataInitializer implements CommandLineRunner {
         reservationRepository.save(reservation3);
 
         System.out.println("✅ Örnek veriler başarıyla yüklendi!");
-        System.out.println("👤 Admin: admin@kutuphane.com / admin123");
+        System.out.println("👤 Root Admin: root@kutuphane.com / root123");
         System.out.println("🎓 Öğrenci: ahmet@student.com / 123456");
         System.out.println("🌐 PostgreSQL: localhost:5432/kutuphane_db");
         System.out.println("   Username: postgres");

@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- * Çalışma odaları yönetimi endpoint'leri
- * Oda ekleme, güncelleme, silme ve müsait odaları listeleme
- * Örnek: GET /api/rooms/available?date=2024-01-15&timeSlotId=1
+/*
+  Çalışma odaları yönetimi endpoint'leri
+  Oda ekleme, güncelleme, silme ve müsait odaları listeleme
+  Örnek: GET /api/rooms/available?date=2024-01-15&timeSlotId=1
  */
 @RestController
 @RequestMapping("/api/rooms")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:4201", "http://localhost:3000"})
 public class RoomController {
 
     private final RoomService roomService;

@@ -16,10 +16,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Spring Security yapılandırma sınıfı
- * Kimlik doğrulama, yetkilendirme ve CORS ayarları
- * BCrypt ile şifre şifreleme ve stateless session yönetimi
+/*
+  Spring Security yapılandırma sınıfı
+  Kimlik doğrulama, yetkilendirme ve CORS ayarları
+  BCrypt ile şifre şifreleme ve stateless session yönetimi
  */
 @Configuration
 @EnableWebSecurity
@@ -41,7 +41,9 @@ public class SecurityConfig {
                 .requestMatchers("/api/rooms/**").permitAll()
                 .requestMatchers("/api/equipment/**").permitAll()
                 .requestMatchers("/api/timeslots/**").permitAll()
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/reservations/**").permitAll()
+                .requestMatchers("/api/users/**").permitAll()
+                .requestMatchers("/api/admin/**").permitAll() // Geçici - JWT eklenene kadar
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
@@ -54,7 +56,11 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200", "http://localhost:3000"));
+        configuration.setAllowedOrigins(List.of(
+            "http://localhost:4200", 
+            "http://localhost:4201", 
+            "http://localhost:3000"
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);

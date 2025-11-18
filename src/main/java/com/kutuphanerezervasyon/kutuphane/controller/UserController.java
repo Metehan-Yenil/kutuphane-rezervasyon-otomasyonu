@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Kullanıcı yönetimi endpoint'lerini sağlayan controller
- * Kullanıcı profil bilgilerini güncelleme ve listeleme işlemleri
- * ADMIN rolü ile tüm kullanıcı listesine erişme yetkisi
+/*
+Kullanıcı yönetimi endpoint'lerini sağlayan controller
+Kullanıcı profil bilgilerini güncelleme ve listeleme işlemleri
+ADMIN rolü ile tüm kullanıcı listesine erişme yetkisi
  */
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:4201", "http://localhost:3000"})
 public class UserController {
 
     private final UserService userService;
