@@ -2,7 +2,9 @@ package com.kutuphanerezervasyon.kutuphane.service;
 
 import com.kutuphanerezervasyon.kutuphane.dto.*;
 import com.kutuphanerezervasyon.kutuphane.entity.*;
+import com.kutuphanerezervasyon.kutuphane.enums.EquipmentStatus;
 import com.kutuphanerezervasyon.kutuphane.enums.ReservationStatus;
+import com.kutuphanerezervasyon.kutuphane.enums.RoomStatus;
 import com.kutuphanerezervasyon.kutuphane.exception.InvalidOperationException;
 import com.kutuphanerezervasyon.kutuphane.exception.MaxReservationLimitException;
 import com.kutuphanerezervasyon.kutuphane.exception.ReservationConflictException;
@@ -78,6 +80,14 @@ public class ReservationService {
             room = roomRepository.findById(request.getRoomId())
                     .orElseThrow(() -> new ResourceNotFoundException("Oda bulunamadı: " + request.getRoomId()));
             
+            // Oda durumu kontrolü
+            if (room.getStatus() == RoomStatus.MAINTENANCE) {
+                throw new InvalidOperationException("Bu oda şu anda bakımda, rezervasyon yapılamaz");
+            }
+            if (room.getStatus() == RoomStatus.OCCUPIED) {
+                throw new InvalidOperationException("Bu oda şu anda dolu, rezervasyon yapılamaz");
+            }
+            
             // Oda çakışma kontrolü
             Long roomConflict = reservationRepository.checkRoomConflict(
                     request.getRoomId(), request.getReservationDate(), request.getTimeSlotId());
@@ -90,6 +100,14 @@ public class ReservationService {
         if (request.getEquipmentId() != null) {
             equipment = equipmentRepository.findById(request.getEquipmentId())
                     .orElseThrow(() -> new ResourceNotFoundException("Ekipman bulunamadı: " + request.getEquipmentId()));
+            
+            // Ekipman durumu kontrolü
+            if (equipment.getStatus() == EquipmentStatus.MAINTENANCE) {
+                throw new InvalidOperationException("Bu ekipman şu anda bakımda, rezervasyon yapılamaz");
+            }
+            if (equipment.getStatus() == EquipmentStatus.RESERVED) {
+                throw new InvalidOperationException("Bu ekipman şu anda rezerve edilmiş, rezervasyon yapılamaz");
+            }
             
             // Ekipman çakışma kontrolü
             Long equipmentConflict = reservationRepository.checkEquipmentConflict(

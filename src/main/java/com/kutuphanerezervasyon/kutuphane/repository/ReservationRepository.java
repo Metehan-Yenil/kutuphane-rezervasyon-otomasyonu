@@ -25,9 +25,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
                                                       @Param("today") LocalDate today,
                                                       @Param("currentTime") java.time.LocalTime currentTime);
     
-    // Kullanıcının aktif rezervasyon sayısını al
+    // Kullanıcının aktif rezervasyon sayısını al (ONAYLANDI veya BEKLENIYOR)
     @Query("SELECT COUNT(r) FROM Reservation r WHERE r.user.userId = :userId " +
-           "AND r.status = 'ONAYLANDI' " +
+           "AND (r.status = 'ONAYLANDI' OR r.status = 'BEKLENIYOR') " +
            "AND (r.reservationDate > :today OR " +
            "(r.reservationDate = :today AND r.timeSlot.endTime > :currentTime))")
     Long countActiveReservationsByUserId(@Param("userId") Integer userId, 
