@@ -13,9 +13,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Oda yönetimi işlemlerini gerçekleştiren servis
- * Oda ekleme, güncelleme, silme ve müsaitlik sorgulama işlemleri
+/*
+  Oda yönetimi işlemlerini gerçekleştiren servis
+ Oda ekleme, güncelleme, silme ve müsaitlik sorgulama işlemleri
  */
 @Service
 @RequiredArgsConstructor

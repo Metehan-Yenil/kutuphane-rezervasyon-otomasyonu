@@ -13,9 +13,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Ekipman yönetimi işlemlerini gerçekleştiren servis
- * Ekipman ekleme, güncelleme, silme ve müsaitlik sorgulama
+/*
+ Ekipman yönetimi işlemlerini gerçekleştiren servis
+ Ekipman ekleme, güncelleme, silme ve müsaitlik sorgulama
  */
 @Service
 @RequiredArgsConstructor

@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Global hata yönetimi sınıfı
- * Tüm controller'lardan fırlatılan exception'ları yakalar ve uygun HTTP yanıtları döndürür
- * 404, 409, 400 gibi standart hata kodları ile Türkçe hata mesajları sağlar
+/*
+  Global hata yönetimi sınıfı
+ Tüm controller'lardan fırlatılan exception'ları yakalar ve uygun HTTP yanıtları döndürür
+ 404, 409, 400 gibi standart hata kodları ile Türkçe hata mesajları sağlar
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {

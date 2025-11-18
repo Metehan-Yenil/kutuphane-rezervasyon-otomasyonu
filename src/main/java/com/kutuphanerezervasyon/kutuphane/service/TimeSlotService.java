@@ -13,9 +13,9 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Zaman dilimi yönetimi servis katmanı
- * Rezervasyon için kullanılabilecek sabit zaman dilimlerini yönetir
+/*
+ Zaman dilimi yönetimi servis katmanı
+ Rezervasyon için kullanılabilecek sabit zaman dilimlerini yönetir
  */
 @Service
 @RequiredArgsConstructor
