@@ -56,11 +56,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(
-            "http://localhost:4200", 
-            "http://localhost:4201", 
-            "http://localhost:3000"
-        ));
+        // Test ortamı için tüm origin'lere izin ver (Production'da kaldırılmalı!)
+        configuration.setAllowedOriginPatterns(List.of("*"));
+        // Veya sadece localhost'a izin ver:
+        // configuration.setAllowedOriginPatterns(List.of("http://localhost:*", "http://127.0.0.1:*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
