@@ -122,6 +122,13 @@ public class ReservationService {
             throw new InvalidOperationException("Geçmiş tarih için rezervasyon yapılamaz");
         }
 
+        // Kullanıcının bu tarih ve saatte başka rezervasyonu var mı kontrolü
+        Long userTimeSlotConflict = reservationRepository.checkUserTimeSlotConflict(
+                request.getUserId(), request.getReservationDate(), request.getTimeSlotId());
+        if (userTimeSlotConflict > 0) {
+            throw new ReservationConflictException("Bu tarih ve saatte zaten bir rezervasyonunuz var");
+        }
+
         // Kullanıcının aktif rezervasyon sayısı kontrolü
         Long activeReservationCount = reservationRepository.countActiveReservationsByUserId(
                 request.getUserId(), LocalDate.now(), LocalTime.now());

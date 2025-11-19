@@ -64,6 +64,15 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
                                 @Param("date") LocalDate date, 
                                 @Param("timeSlotId") Integer timeSlotId);
     
+    // Çakışma kontrolü - Kullanıcı (aynı tarih ve saatte başka rezervasyon var mı)
+    @Query("SELECT COUNT(r) FROM Reservation r WHERE r.user.userId = :userId " +
+           "AND r.reservationDate = :date " +
+           "AND r.timeSlot.timeSlotId = :timeSlotId " +
+           "AND (r.status = 'ONAYLANDI' OR r.status = 'BEKLENIYOR')")
+    Long checkUserTimeSlotConflict(@Param("userId") Integer userId,
+                                   @Param("date") LocalDate date,
+                                   @Param("timeSlotId") Integer timeSlotId);
+    
     // Tüm bekleyen rezervasyonları getir (Admin için)
     @Query("SELECT r FROM Reservation r WHERE r.status = 'BEKLENIYOR' ORDER BY r.reservationDate, r.timeSlot.startTime")
     List<Reservation> findPendingReservations();
