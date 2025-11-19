@@ -41,7 +41,7 @@ class ReservationRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        // Test verileri oluştur
+        // Test verileri 
         user = new User();
         user.setName("Test User");
         user.setEmail("test@test.com");
@@ -89,6 +89,7 @@ class ReservationRepositoryTest {
 
     @Test
     @DisplayName("Oda çakışması kontrolü - çakışma yoksa 0 döner")
+
     void odaCakismasi_CakismaYoksa_0Doner() {
         Long conflict = reservationRepository.checkRoomConflict(
             room.getRoomId(),
@@ -101,6 +102,7 @@ class ReservationRepositoryTest {
 
     @Test
     @DisplayName("Kullanıcı zaman dilimi çakışması kontrolü")
+
     void kullaniciZamanDilimiCakismasi_KontrolEdilir() {
         Reservation reservation = new Reservation();
         reservation.setUser(user);
@@ -121,6 +123,7 @@ class ReservationRepositoryTest {
 
     @Test
     @DisplayName("Aktif rezervasyon sayısı kontrolü")
+
     void aktifRezervasyonSayisi_DogruHesaplanir() {
         Reservation res1 = new Reservation();
         res1.setUser(user);
@@ -157,6 +160,7 @@ class ReservationRepositoryTest {
 
     @Test
     @DisplayName("Ekipman çakışması kontrolü")
+
     void ekipmanCakismasi_KontrolEdilir() {
         Reservation reservation = new Reservation();
         reservation.setUser(user);
