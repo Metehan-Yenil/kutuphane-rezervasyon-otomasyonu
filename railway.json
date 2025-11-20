@@ -3,6 +3,8 @@
   "build": {
     "builder": "DOCKERFILE",
     "dockerfilePath": "Dockerfile"
+    "port":8080
+    "Healt Check": "/actuator/health"
   },
   "deploy": {
     "numReplicas": 1,
